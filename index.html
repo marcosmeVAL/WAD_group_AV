@@ -1,1 +1,88 @@
 <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="res/styles/css/stylesForIndex.css">
+        <title>Home</title>
+    </head>
+    <body>
+        <header class="top-bar">
+            <nav class="nav">
+                <a id="nav-home" href="index.html">Home</a>
+                <a id="nav-add" href="addPost.html">Add Post</a>
+                <a class="profile" href="login.html" aria-label="Login">
+                    <img src="res/images/me.png" alt="Profile" class="profile-pic">
+                </a>   
+            </nav>
+        </header>
+
+        <main class="layout">
+            <section><h1>Different posts</h1></section>
+
+            <section class="feed">
+                <h2 class="feed-header">Latest Posts</h2>
+
+                <div class="posts">
+                    <article class="post">
+                        <header class="post-head">
+                            <div class="post-avatar" aria-hidden="true">
+                                <img src="res/images/me.png" alt="" class="post-avatar-pic">
+                            </div>
+                            <h3>Post 1</h3>
+                            <time class="post-date" datetime="2025-10-01">Oct 1, 2025</time>
+                        </header>
+                        <img class="post-img" src="res/images/tartuAboveShot.jpg" 
+                            alt="Image of Tartu from sky" loading="lazy">
+                        <p class="post-message">Drone capture photo of Tartu</p>
+                        <button class="post-like" type="button">👍</button>
+                    </article>
+
+                    <article class="post">
+                        <header class="post-head">
+                            <div class="post-avatar" aria-hidden="true"></div>
+                            <h3>Post 2</h3>
+                            <time class="post-date" datetime="2025-10-01">Oct 1, 2025</time>
+                        </header>
+                        <p class="post-message">Anyone knows in which room is the lab today?</p>
+                        <button class="post-like" type="button">👍</button>
+                    </article>
+
+                    <article class="post">
+                        <header class="post-head">
+                            <div class="post-avatar"></div>
+                            <h3>Post 3</h3>
+                            <time class="post-date" datetime="2025-09-30">Sep 30, 2025</time>
+                        </header>
+                        <p class="post-message">Flexbox is neat.</p>
+                        <button class="post-like" type="button">👍</button>
+                    </article>
+
+                    <article class="post">
+                        <header class="post-head">
+                            <div class="post-avatar"></div>
+                            <h3>Post 4</h3>
+                            <time class="post-date" datetime="2025-09-30">Sep 30, 2025</time>
+                        </header>
+                        <p class="post-message">HM1 is neat.</p>
+                        <button class="post-like" type="button">👍</button>
+                    </article>
+
+                    <article class="post">
+                        <header class="post-head">
+                            <div class="post-avatar"></div>
+                            <h3>Post 5</h3>
+                            <time class="post-date" datetime="2025-09-30">Sep 30, 2025</time>
+                        </header>
+                        <p class="post-message">Wroking on HM1.</p>
+                        <button class="post-like" type="button">👍</button>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>FOOTER</p>
+        </footer>
+    </body>    
+</html>
