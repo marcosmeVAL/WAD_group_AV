@@ -38,3 +38,141 @@
     max-width: 100%;
     aspect-ratio: 1;
 }
+
+.layout {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px;
+}
+
+.left-rail,
+.right-rail {
+    display: none;
+    flex: 1 0 0;
+    background-color: gray;
+    min-width: 0;
+}
+
+.feed {
+  flex: 1 1 auto;
+  max-width: 600px;
+  width: min(100%, 600px);
+  min-width: 0;
+}
+
+.feed-header {
+  margin: 0 0 6px 0;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.post {
+    background: #efefef;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.post-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.post-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #bbb;
+  overflow: hidden;
+  flex: 0 0 28px;
+}
+
+.post-avatar > .post-avatar-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.post-title {
+    margin: 0 0 0 6px;
+    font-size: 1rem;
+}
+
+.post-date {
+    margin-left: auto;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.post-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin-top: 8px;
+}
+
+.post-message {
+    margin: 8px 0 0 0;
+}
+
+.post-message::first-letter {
+  font-weight: 700;
+}
+
+.post-like {
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.post-like:hover {
+    background-color: lightblue;
+}
+
+.post-like:active {
+    background: deepskyblue;
+    transform: scale(0.95);
+}
+
+.feed-header ~ .posts {
+  border-top: 1px dashed #ccc;
+  padding-top: 10px;
+}
+
+.post-title + .post-date {
+  color: #444;
+}
+
+a:focus-visible, .post-like:focus-visible {
+  outline: 2px solid #e24a4a;
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  .layout { padding: 12px; gap: 12px; }
+  .post { padding: 8px; }
+  .feed { max-width: 100%; padding: 0 10px;}
+}
+
+@media (min-width: 701px) {
+  .left-rail,
+  .right-rail {
+    display: block;
+  }
+
+  .feed {
+    flex: 0 0 600px;
+    max-width: var(--feed-max);
+    width: auto;
+  }
+}
