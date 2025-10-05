@@ -176,3 +176,17 @@ a:focus-visible, .post-like:focus-visible {
     width: auto;
   }
 }
+
+.footer {
+  background: #d9d9d9;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 0.95rem;
+  color: #333;
+  margin-top: 40px;
+  border-top: 1px solid #b0b0b0;
+}
+
+.footer p {
+  margin: 0;
+}
