@@ -3,24 +3,59 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="res/styles/css/stylesForIndex.css" />
         <link rel="stylesheet" href="res/styles/css/stylesLogin.css">
         <title>Login</title>
     </head>
     <body>
-        <header>
-            <nav>
-                <a id="nav-home" href="index.html">Home</a>
-                <a class="profile" href="login.html" aria-label="Login">
-                    <img src="res/images/me.png" alt="Profile" class="profile-pic">
-                </a> 
-            </nav>
-        </header>
+    <header class="top-bar">
+        <nav class="nav">
+            <a id="nav-home" href="index.html">Home</a>
+            <a id="nav-add" href="addPost.html">Add Post</a>
+            <a class="profile" href="login.html" aria-label="Login">
+            <img src="res/images/me.png" alt="Profile" class="profile-pic" />
+            </a>
+        </nav>
+    </header>
 
-        <main>
+    <main class="login-layout">
+        <form id="login-form" class="login-form" onsubmit="return validateLogin()">
+            <h2 class="login-title">Welcome to PostIt</h2>
+
+            <div>
+                <a class="xtra" href="login.html">Create account</a>
+                <p class="login-text">or<br>
+                    Please log in
+                </p>
+            </div>
             
-        </main>
-    </body>
-    <footer>
+            <div class="form-group">
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    required
+                />
+            </div>
 
+            <div class="form-group">
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Username"
+                    required
+                />
+            </div>
+
+            <button type="submit" class="login-button">Log in</button>
+            <a class="xtra" href="login.html">Forgot password?</a>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <p>Members: Matteus Kalda, Anton Laidmets, Marcos Meitern</p>
     </footer>
+
+    <script type="text/javascript" src="res/scripts/login.js"></script>
+</body>
 </html>
