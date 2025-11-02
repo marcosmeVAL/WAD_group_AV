@@ -23,67 +23,34 @@
             <section class="feed">
                 <h2 class="feed-header">Latest Posts</h2>
 
-                <div class="posts">
-                    <article class="post">
-                        <header class="post-head">
-                            <div class="post-avatar" aria-hidden="true">
-                                <img src="res/images/me.png" alt="" class="post-avatar-pic">
-                            </div>
-                            <h3 class="post-title">Post 1</h3>
-                            <time class="post-date" datetime="2025-10-01">Oct 1, 2025</time>
-                        </header>
-                        <img class="post-img" src="res/images/tartuAboveShot.jpg" 
-                            alt="Image of Tartu from sky" loading="lazy">
-                        <p class="post-message">Drone capture photo of Tartu</p>
-                        <button class="post-like" type="button">👍</button>
-                    </article>
+                <div id="posts" class="posts"></div>
+                <div id="status" class="status" hidden></div>
 
+                <!-- post structure -->
+                <template id="post-template">
                     <article class="post">
-                        <header class="post-head">
-                            <div class="post-avatar" aria-hidden="true"></div>
-                            <h3 class="post-title">Post 2</h3>
-                            <time class="post-date" datetime="2025-10-01">Oct 1, 2025</time>
-                        </header>
-                        <p class="post-message">Anyone knows in which room is the lab today?</p>
-                        <button class="post-like" type="button">👍</button>
-                    </article>
+                    <header class="post-head">
+                        <div class="post-avatar" aria-hidden="true">
+                        <img class="post-avatar-pic" alt="">
+                        </div>
+                        <h3 class="post-title"></h3>
+                        <time class="post-date" datetime=""></time>
+                    </header>
 
-                    <article class="post">
-                        <header class="post-head">
-                            <div class="post-avatar"></div>
-                            <h3 class="post-title">Post 3</h3>
-                            <time class="post-date" datetime="2025-09-30">Sep 30, 2025</time>
-                        </header>
-                        <p class="post-message">Flexbox is neat.</p>
-                        <button class="post-like" type="button">👍</button>
-                    </article>
+                    <!-- present only if image exists -->
+                    <img class="post-img" alt="" loading="lazy" hidden>
 
-                    <article class="post">
-                        <header class="post-head">
-                            <div class="post-avatar"></div>
-                            <h3 class="post-title">Post 4</h3>
-                            <time class="post-date" datetime="2025-09-30">Sep 30, 2025</time>
-                        </header>
-                        <p class="post-message">HM1 is neat.</p>
-                        <button class="post-like" type="button">👍</button>
+                    <p class="post-message"></p>
+                    <button class="post-like" type="button">👍</button>
                     </article>
-
-                    <article class="post">
-                        <header class="post-head">
-                            <div class="post-avatar"></div>
-                            <h3 class="post-title">Post 5</h3>
-                            <time class="post-date" datetime="2025-09-30">Sep 30, 2025</time>
-                        </header>
-                        <p class="post-message">Wroking on HM1.</p>
-                        <button class="post-like" type="button">👍</button>
-                    </article>
-                </div>
+                </template>
             </section>
 
             <aside class="right-rail"></aside>
         </main>
 
         <footer class="footer">
+            <script src="js/posts.js" defer></script>
             <p>Members: Matteus Kalda, Anton Laidmets, Marcos Meitern</p>
         </footer>
     </body>    

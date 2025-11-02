@@ -1,3 +1,10 @@
+html, body { height: 100%; }
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .top-bar {
   background: #d9d9d9;
   padding: 10px 12px;
@@ -21,7 +28,6 @@
     background: whitesmoke;
 }
 
-
 .nav .profile {
     margin-left: auto;
     flex: 0 0 auto;
@@ -41,6 +47,7 @@
 
 .layout {
     display: flex;
+    flex: 1;
     justify-content: center;
     gap: 16px;
     padding: 16px;
@@ -144,6 +151,12 @@
     transform: scale(0.95);
 }
 
+.post-like[aria-pressed="true"]{
+  background: deepskyblue;
+  color: #003049;
+  border-color: #369ee8;
+}
+
 .feed-header ~ .posts {
   border-top: 1px dashed #ccc;
   padding-top: 10px;
@@ -156,6 +169,20 @@
 a:focus-visible, .post-like:focus-visible {
   outline: 2px solid #e24a4a;
   outline-offset: 2px;
+}
+
+.status{
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  color: #775900;
+}
+.status.status-error{
+  background: #fdecea;
+  border-color: #f5c2c7;
+  color: #7a1a1a;
 }
 
 @media (max-width: 700px) {
@@ -175,6 +202,11 @@ a:focus-visible, .post-like:focus-visible {
     max-width: var(--feed-max);
     width: auto;
   }
+}
+
+:focus-visible{
+  outline: 2px solid #e24a4a;
+  outline-offset: 2px;
 }
 
 .footer {
