@@ -1,6 +1,10 @@
 // Displaying the json posts from here
 // Status is still to be added
+
+// We use local instead of this
 const POSTS_ENDPOINT = "https://raw.githubusercontent.com/marcosmeVAL/WAD_group_AV/refs/heads/main/data/posts.json";
+
+const LOCAL_POSTS_PATH = "data/posts.json";
 
 const container = document.getElementById("posts");
 const statusBox = document.getElementById("status");  
@@ -84,6 +88,7 @@ function renderPosts(postsArray) {
     })
 }
 
+// This is for the endpoint
 function loadPostsFromEndpoint() {
     fetch(POSTS_ENDPOINT)
         .then(response => response.json())
@@ -92,4 +97,13 @@ function loadPostsFromEndpoint() {
         })
 }
 
-loadPostsFromEndpoint()
+function loadPostsFromLocal() {
+    fetch(LOCAL_POSTS_PATH)
+        .then(response => response.json())
+        .then(data => {
+            renderPosts(data)
+        })
+}
+
+// loadPostsFromEndpoint()
+loadPostsFromLocal()
