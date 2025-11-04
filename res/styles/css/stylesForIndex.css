@@ -185,6 +185,23 @@ a:focus-visible, .post-like:focus-visible {
   color: #7a1a1a;
 }
 
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background-color: #ffffff;
+  border: 1px solid #b0b0b0;
+  border-radius: 10px;
+  padding: 10px;
+  width: 220px;
+  text-align: left;
+}
+
+.dropdown.hidden {
+  opacity: 0;
+}
+
+
 @media (max-width: 700px) {
   .layout { padding: 12px; gap: 12px; }
   .post { padding: 8px; }
