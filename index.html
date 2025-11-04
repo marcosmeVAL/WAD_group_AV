@@ -11,9 +11,15 @@
             <nav class="nav">
                 <a id="nav-home" href="index.html">Home</a>
                 <a id="nav-add" href="addPost.html">Add Post</a>
-                <a class="profile" href="login.html" aria-label="Login">
-                    <img src="res/images/me.png" alt="Profile" class="profile-pic">
-                </a>   
+                <div class="profile" aria-label="Login">
+                    <img src="res/images/me.png" alt="Profile" class="profile-pic" id="profile-pic">
+                    
+                    <div class="dropdown" id="dropdown-menu">
+                        <p class="user-name">John Doe</p>
+                        <p class="user-email">john.doe@example.com</p>
+                        <button class="logout-btn">Logout</button>
+                    </div>
+                </div>   
             </nav>
         </header>
 
@@ -51,6 +57,7 @@
 
         <footer class="footer">
             <script src="res/scripts/posts.js" defer></script>
+            <script src="res/scripts/dropdown.js" defer></script>
             <p>Members: Matteus Kalda, Anton Laidmets, Marcos Meitern</p>
         </footer>
     </body>    
