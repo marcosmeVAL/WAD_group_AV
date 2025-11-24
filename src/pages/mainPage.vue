@@ -3,11 +3,13 @@
     <div class="left-rail"></div>
 
     <div class="feed">
-      <h2 class="feed-header">Main Page</h2>
-
-      <div class="posts">
-        <!-- later: v-for PostItem here -->
-      </div>
+      <header class="feed-header-row">
+        <h2 class="feed-header">Main Page</h2>
+        <button class="reset-likes" type="button" @click="resetAllLikes">
+          Reset likes
+        </button>
+      </header>
+      <post-compo />
     </div>
 
     <div class="right-rail"></div>
@@ -15,8 +17,15 @@
 </template>
 
 <script>
+import postCompo from './components/postCompo.vue'
 export default {
-  name: 'mainPage'
+  components: { postCompo },
+  name: 'mainPage',
+  methods: {
+    resetAllLikes: function() {
+      this.$store.dispatch("resetAllLikes")
+    }
+  }
 }
 </script>
 
@@ -46,6 +55,26 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+.feed-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.feed-header {
+  margin: 0;
+}
+.reset-likes {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: #e0e0e0;
+}
+.reset-likes:hover {
+  background: #d0d0d0;
 }
 @media (max-width: 700px) {
   .layout { padding: 12px; gap: 12px; }
