@@ -37,7 +37,7 @@ const createUserTable = `
         id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
         email VARCHAR(150) NOT NULL UNIQUE,
         password VARCHAR(100) NOT NULL
-    );`; // kui tahab username'i ss peab lisama siia
+    );`; // kui tahab username'i ss peab lisama
 
 const createPostsTable = `
     CREATE TABLE IF NOT EXISTS "posts" (
