@@ -26,10 +26,6 @@ const generateJWT = (id) => {
 //jwt.sign(payload, secret, [options, callback]), and it returns the JWT as string
 };
 
-app.listen(port, () => {
-    console.log("Server is listening to port " + port)
-});
-
 // POST /api/signup → register
 // signup a user
 app.post('/auth/signup', async(req, res) => {
@@ -149,10 +145,102 @@ const requireAuth = (req, res, next) => {
 };
 
 // GET /api/posts → getAllPosts (homepage)
+app.get('/api/posts', requireAuth, async (req, res) => {
+    try {
+        console.log("received get all posts request!");
+        const results = await pool.query(`SELECT * FROM "posts" ORDER BY created_at DESC`);
+        res.status(200).json(results.rows);
+    } catch (e) {
+        console.error(e.message);
+        res.status(500).json({error: "Server error!"});
+    }
+});
 // GET /api/posts/:id → getPost (“a post” page)
+app.get('/api/posts/:id', requireAuth, async (req, res) => {
+    try {
+        console.log("received get a single post request!");
+        const { id } = req.params;
+        const result = await pool.query(`SELECT * FROM "posts" WHERE "id" = $1`, [id]);
+        
+        const post = result.rows[0]
+        if (!post) return res.status(404).json({ error: "Not found!"}); 
+        res.status(200).json(post);
+    } catch (e) {
+        console.error(e.message);
+        res.status(500).json({error: "Server error!"});
+    }
+});
 // POST /api/posts → addPost
+app.post('/api/posts', requireAuth, async (req, res) => {
+    try {
+        const { body } = req.body;
+        const result = 
+            await pool.query(
+                `INSERT INTO posts (body) VALUES ($1) RETURNING *`, 
+                [body]
+            );
+        res.status(201).json(result.rows[0]);
+    } catch (e) {
+        console.error(e.message);
+        res.status(500).json({error: "Server error!"})
+    }
+});
 // PUT /api/posts/:id → updatePost
+app.put('/api/posts/:id', requireAuth, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { body } = req.body;
+        const result = 
+            await pool.query(
+                `UPDATE posts SET body = $2 WHERE id = $1 RETURNING *`, 
+                [id, body],
+            );
+        const updatedPost = result.rows[0];
+        if (!updatedPost)
+            return res.status(404).json({ error: 'Post not found' });
+
+        res.status(200).json(updatedPost);
+    } catch (e) {
+        console.error(e.message);
+        res.status(500).json({error: "Server error!"})
+    }
+});
 // DELETE /api/posts/:id → deleteSinglePost
+app.delete('/api/posts/:id', requireAuth, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = 
+            await pool.query(
+                `DELETE FROM posts WHERE id = $1`, 
+                [id],
+            );
+        if (result.rowCount === 0) 
+            return res.status(404).json({ error: "Post not found" }); 
+        
+        res.status(200).json({ success: result.rowCount > 0});
+    } catch (e) {
+        console.error(e.message);
+        res.status(500).json({error: "Server error!"})
+    }
+});
 // DELETE /api/posts → **deleteAllPosts`
+app.delete('/api/posts', requireAuth, async (req, res) => {
+    try {
+        await pool.query(`DELETE FROM posts`)
+        res.status(200).json({ success: true });
+    } catch (e) {
+        console.error(e.message);
+        res.status(500).json({error: "Server error!"})
+    }
+});
+
+
+// Seda pole vaja, voib kustutada kui ei viitsi teha 
+// vahemalt tundus nagu poleks vaja
 // PUT /api/posts/:id/like
 // DELETE /api/posts/like
+
+
+app.listen(port, () => {
+    console.log("Server is listening to port " + port)
+});

@@ -34,7 +34,7 @@ const execute = async(query) => {
 
 const createUserTable = `
     CREATE TABLE IF NOT EXISTS "users" (
-        id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+        id SERIAL PRIMARY KEY,
         email VARCHAR(150) NOT NULL UNIQUE,
         password VARCHAR(100) NOT NULL
     );`; // kui tahab username'i ss peab lisama
