@@ -26,7 +26,7 @@ const generateJWT = (id) => {
 //jwt.sign(payload, secret, [options, callback]), and it returns the JWT as string
 };
 
-// POST /api/signup → register
+// POST /auth/signup → register
 // signup a user
 app.post('/auth/signup', async(req, res) => {
     try {
@@ -55,7 +55,7 @@ app.post('/auth/signup', async(req, res) => {
     }
 });
 
-// POST /api/login → login
+// POST /auth/login → login
 app.post('/auth/login', async(req, res) => {
     try {
         console.log("a login request has arrived");
@@ -89,14 +89,14 @@ app.post('/auth/login', async(req, res) => {
     }
 });
 
-// GET /api/logout → logout
+// GET /auth/logout → logout
 //logout a user = deletes the jwt
 app.get('/auth/logout', (req, res) => {
     console.log('delete jwt request arrived');
     res.status(202).clearCookie('jwt').json({ "Msg": "cookie cleared" }).send
 });
 
-// GET /api/auth → authCheck: returns 200 if JWT is valid, 401 otherwise
+// GET /auth/auth → authCheck: returns 200 if JWT is valid, 401 otherwise
 // is used to check whether a user is authinticated
 app.get('/auth/authenticate', async(req, res) => {
     console.log('authentication request has been arrived');
