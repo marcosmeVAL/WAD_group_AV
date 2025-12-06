@@ -79,6 +79,7 @@ app.post('/auth/login', async(req, res) => {
         if (!validPassword) return res.status(401).json({ error: "Incorrect password" });
 
         const token = await generateJWT(user.rows[0].id);
+        console.log("logged in");
         res
             .status(201)
             .cookie('jwt', token, { maxAge: 6000000, httpOnly: true })
@@ -148,7 +149,7 @@ const requireAuth = (req, res, next) => {
 app.get('/api/posts', requireAuth, async (req, res) => {
     try {
         console.log("received get all posts request!");
-        const results = await pool.query(`SELECT * FROM "posts" ORDER BY created_at DESC`);
+        const results = await pool.query(`SELECT * FROM posts ORDER BY created_at DESC`);
         res.status(200).json(results.rows);
     } catch (e) {
         console.error(e.message);
@@ -160,7 +161,7 @@ app.get('/api/posts/:id', requireAuth, async (req, res) => {
     try {
         console.log("received get a single post request!");
         const { id } = req.params;
-        const result = await pool.query(`SELECT * FROM "posts" WHERE "id" = $1`, [id]);
+        const result = await pool.query(`SELECT * FROM posts WHERE "id" = $1`, [id]);
         
         const post = result.rows[0]
         if (!post) return res.status(404).json({ error: "Not found!"}); 

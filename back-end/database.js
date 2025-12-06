@@ -43,10 +43,17 @@ const createPostsTable = `
     CREATE TABLE IF NOT EXISTS "posts" (
         id SERIAL PRIMARY KEY,
         body TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT NOW()
+    );`;
+/* Kui like'i vaja
+const createPostsTable = `
+    CREATE TABLE IF NOT EXISTS "posts" (
+        id SERIAL PRIMARY KEY,
+        body TEXT NOT NULL,
         likes INT4 NOT NULL DEFAULT 0,
         created_at TIMESTAMP DEFAULT NOW()
     );`;
-
+*/
 execute(createUserTable).then(result => {
     if (result) {
         console.log('Table "users" is created');
