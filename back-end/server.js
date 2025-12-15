@@ -34,6 +34,11 @@ app.post('/auth/signup', async(req, res) => {
         //console.log(req.body);
         const { email, password } = req.body;
 
+        const existing = await pool.query("SELECT id FROM users WHERE email = $1", [email]);
+        if (existing.rows.length > 0) {
+            return res.status(409).json({ error: "User already exists" });
+        }
+
         const salt = await bcrypt.genSalt(); //  generates the salt, i.e., a random string
         const bcryptPassword = await bcrypt.hash(password, salt) // hash the password and the salt 
         const authUser = await pool.query( // insert the user and the hashed password into the database
