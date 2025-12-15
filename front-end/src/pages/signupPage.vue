@@ -16,22 +16,25 @@
           </div>
         </div>
 
-        <button :disabled="errors.length > 0">Login</button>
+        <button :disabled="errors.length > 0">Signup</button>
+
+        <div class="alt-action">
+          <span>Already have an account?</span>
+          <button type="button" class="secondary" @click="$router.push({ name: 'Login' })">
+            Login
+          </button>
+        </div>
+
       </form>
-      <div class="alt-action">
-        <span>No account?</span>
-        <button type="button" class="secondary" @click="$router.push({ name: 'Signup' })">
-          Signup
-        </button>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { api } from "@/api";
+
 export default {
-  name: "LoginPage",
+  name: "SignupPage",
   data() {
     return {
       email: "",
@@ -56,9 +59,9 @@ export default {
     async submitForm() {
       this.checkPassword();
       if (this.errors.length > 0) return;
-      
+
       try {
-        await api("/auth/login", {
+        await api("/auth/signup", {
           method: "POST",
           body: { email: this.email, password: this.password },
         });
@@ -146,5 +149,4 @@ button:disabled {
   border-radius: 4px;
   cursor: pointer;
 }
-
 </style>
