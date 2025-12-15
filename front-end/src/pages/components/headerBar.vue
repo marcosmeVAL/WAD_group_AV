@@ -4,6 +4,7 @@
             <h1 class="logo">Logo</h1>
 
             <router-link to="/" class="nav-link">Home</router-link>
+            <router-link to="/contacts" class="nav-link">Contacts</router-link>
             <router-link to="/login" class="nav-link">Login</router-link> 
         </nav>
     </header>
