@@ -12,7 +12,7 @@
         <div v-if="errors.length > 0" class="error-box">
           <p>The password is not valid:</p>
           <div>
-            <p v-for="err in errors">{{ err }}</p>
+            <p v-if="errors.length" class="error">{{ errors[0] }}</p>
           </div>
         </div>
 
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { api } from "@/api";
 export default {
   name: "LoginPage",
   data() {
@@ -46,8 +47,18 @@ export default {
 
       this.errors = err;
     },
-    submitForm() {
-      this.$router.push({ name: "Main" });
+    async submitForm() {
+      this.errors = [];
+      try {
+        await api("/auth/login", {
+          method: "POST",
+          body: { email: this.email, password: this.password },
+        });
+
+        this.$router.push({ name: "Main" });
+      } catch (e) {
+        this.errors = [e.message];
+      }
     }
   }
 };
