@@ -4,6 +4,7 @@ import loginPage from '@/pages/loginPage'
 import signupPage from '@/pages/signupPage'
 import contactsPage from '@/pages/contactsPage'
 import { api } from "@/api";
+import AddPostPage from '../pages/addPostPage.vue'
 
 const routes = [
     {
@@ -11,6 +12,18 @@ const routes = [
         name: 'Main',
         component: mainPage,
         meta: {requiresAuth : true}
+    },
+    {
+        path: '/posts/new',
+        name: 'AddPost',
+        component: AddPostPage,
+        meta: {requiresAuth : true}
+    },
+    {
+        path: '/posts/:id',
+        name: 'Post',
+        component: () => import('@/pages/postPage.vue'),
+        meta: { requiresAuth: true }
     },
     {
         path: '/login',

@@ -1,97 +1,212 @@
 <template>
-  <div class="layout">
-    <div class="left-rail"></div>
+  <div class="home-page">
 
-    <div class="feed">
-      <header class="feed-header-row">
-        <h2 class="feed-header">Main Page</h2>
-        <button class="reset-likes" type="button" @click="resetAllLikes">
-          Reset likes
-        </button>
-      </header>
-      <post-compo />
+    <div class="top-actions">
+      <button @click="logout">Logout</button>
     </div>
 
-    <div class="right-rail"></div>
+    <main class="layout">
+      <section class="feed">
+        <h2 class="feed-header">Latest Posts</h2>
+
+        <div v-if="!posts.length" class="status">No posts yet.</div>
+
+        <div class="posts">
+          <div 
+            v-for="post in posts" :key="post.id" 
+            class="post" @click="$router.push({ name: 'Post', params: { id: post.id } })"
+            style="cursor: pointer;"
+          >
+            <div class="post-head">
+              <time class="post-date">{{ formatDate(post.created_at) }}</time>
+            </div>
+            <p class="post-message">{{ post.body }}</p>
+          </div>
+        </div>
+
+
+        <div class="buttons">
+          <button @click="$router.push({name: 'AddPost'})">Add Post</button>
+          <button @click="deleteAllPosts">Delete All</button>
+        </div>
+      </section>
+    </main>
   </div>
 </template>
 
 <script>
-import postCompo from './components/postCompo.vue'
 export default {
-  components: { postCompo },
-  name: 'mainPage',
+  name: "HomePage",
+  data() {
+    return {
+      posts: []
+    };
+  },
   methods: {
-    resetAllLikes: function() {
-      this.$store.dispatch("resetAllLikes")
+    async fetchPosts() {
+      try {
+        const res = await fetch('http://localhost:3000/api/posts', {
+          credentials: 'include'
+        });
+        if (!res.ok) {
+          console.error('Not authenticated or fetch failed');
+          return;
+        }
+        this.posts = await res.json();
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    formatDate(dateStr) {
+      const d = new Date(dateStr);
+      const hours = String(d.getHours()).padStart(2, '0');
+      const minutes = String(d.getMinutes()).padStart(2, '0');
+      const month = d.toLocaleString('en-US', { month: 'short' });
+      const day = d.getDate();
+      const year = d.getFullYear();
+      return `${hours}:${minutes} ${month} ${day}, ${year}`;
+    },
+    async deleteAllPosts() {
+      try {
+        const res = await fetch('http://localhost:3000/api/posts', {
+          method: 'DELETE',
+          credentials: 'include'
+        });
+        if (!res.ok) throw new Error('Delete failed');
+        this.posts = [];
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    async logout() {
+      try {
+        const res = await fetch('http://localhost:3000/auth/logout', {
+          method: 'GET',
+          credentials: 'include'
+        });
+        console.log(await res.json());
+        this.$router.push('/login');
+      } catch (err) {
+        console.error(err);
+      }
     }
+  },
+  mounted() {
+    this.fetchPosts();
   }
-}
+};
 </script>
 
+<style scoped>
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+}
 
-<style>
 .layout {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    gap: 16px;
-    padding: 16px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
-.left-rail,
-.right-rail {
-    display: none;
-    flex: 1 0 0;
-    background-color: gray;
-    min-width: 0;
-}
+
 .feed {
-  flex: 1 1 auto;
+  width: 100%;
   max-width: 600px;
-  width: min(100%, 600px);
-  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.feed-header {
+  margin-bottom: 12px;
+  text-align: center;
+  width: 100%;
+}
+
 .posts {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 80%;
 }
-.feed-header-row {
+
+.post {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.post-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
 }
-.feed-header {
-  margin: 0;
-}
-.reset-likes {
-  border: none;
-  border-radius: 999px;
-  padding: 6px 12px;
+
+.post-date {
+  margin-left: auto;
+  color: #555;
   font-size: 0.9rem;
+}
+
+.post-message {
+  margin: 8px 0 0 0;
+}
+
+.top-actions {
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.top-actions button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  background: #007bff;
+  color: white;
   cursor: pointer;
-  background: #e0e0e0;
-}
-.reset-likes:hover {
-  background: #d0d0d0;
-}
-@media (max-width: 700px) {
-  .layout { padding: 12px; gap: 12px; }
-  .post { padding: 8px; }
-  .feed { max-width: 100%; padding: 0 10px;}
 }
 
-@media (min-width: 701px) {
-  .left-rail,
-  .right-rail {
-    display: block;
-  }
-
-  .feed {
-    flex: 0 0 600px;
-    max-width: var(--feed-max);
-    width: auto;
-  }
+.top-actions button:hover {
+  background: #0056b3;
 }
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.buttons button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.buttons button:hover {
+  background: #0056b3;
+}
+
+.status {
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  color: #775900;
+  text-align: center;
+}
+
 </style>
